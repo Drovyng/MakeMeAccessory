@@ -1,0 +1,30 @@
+This QOL mod adds boxes for storing accessories and armor.
+
+They can be opened by right clicking.
+They are used as accessories and can be hidden.
+
+Accessory Box can be recursive.
+Armor Box gives a set bonus for [c/44FFFF:EVERY LINE SEPARATELY] and [c/44FFFF:ALLOWS REPEATING!!!]
+
+Each Box has up to [c/44FFFF:30 slots].
+
+[c/FF4444:WARNING!!! THIS MOD MAY HAVE BUGS!!! AUTHOR WILL FIX REPORTED BUGS!!!]
+
+---Update 1.2.0---
+Fixed Multiplayer
+Fixed Set Bonus Game Freeze
+
+---Update 1.1.3---
+Added Localization Support
+
+---Update 1.1.2---
+Fixed UI
+
+---Update 1.1.1---
+Fixed Crafting
+
+---Update 1.1.0---
+Added Buff, That display armor set bonuses from Armor Box
+
+---Update 1.0.1---
+Fixed recursive accessory error
