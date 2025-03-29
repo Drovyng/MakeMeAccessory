@@ -3,7 +3,7 @@ Items: {
 		DisplayName: Ящик Аксессуаров
 		Tooltip:
 			'''
-			[c/44FF44:Содержит {0}/30 Аксессуаров]
+			[c/44FF44:Содержит {0}/{1} Аксессуаров]
 			[c/44FF44:Правый Клик для открытия]
 			[c/44FF44:Может быть рекурсивным]
 			'''
@@ -13,7 +13,7 @@ Items: {
 		DisplayName: Ящик Брони
 		Tooltip:
 			'''
-			[c/44FF44:Содержит {0}/10 Сетов Брони]
+			[c/44FF44:Содержит {0}/{1} Сетов Брони]
 			[c/44FF44:Правый Клик для открытия]
 			[c/44FF44:Дубликаты тоже работают]
 			'''
@@ -24,5 +24,24 @@ Buffs: {
 	ArmorSetsBuff: {
 		DisplayName: "[c/CCFFCC:Ящик Брони - Бонусы Комплектов:]"
 		Description: Mods.MakeMeAccessory.Buffs.ArmorSetsBuff.Description
+	}
+}
+
+ButtonEffects: Эффекты
+ButtonProtection: Защита
+
+Configs: {
+	MMAConfig: {
+		// DisplayName: M M A Config
+
+		MaxAccessories: {
+			// Label: Max Accessories
+			// Tooltip: ""
+		}
+
+		MaxArmorSets: {
+			// Label: Max Armor Sets
+			// Tooltip: ""
+		}
 	}
 }

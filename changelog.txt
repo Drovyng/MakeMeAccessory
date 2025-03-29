@@ -1,0 +1,2 @@
+Added config.
+Added toggle buttons for effects and protection.

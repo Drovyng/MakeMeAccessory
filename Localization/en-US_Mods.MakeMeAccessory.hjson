@@ -3,7 +3,7 @@ Items: {
 		DisplayName: Accessory Box
 		Tooltip:
 			'''
-			[c/44FF44:Contains {0}/30 Accessories]
+			[c/44FF44:Contains {0}/{1} Accessories]
 			[c/44FF44:Right Click to Open]
 			[c/44FF44:Can be recursive]
 			'''
@@ -13,7 +13,7 @@ Items: {
 		DisplayName: Armor Box
 		Tooltip:
 			'''
-			[c/44FF44:Contains {0}/10 Armor Sets]
+			[c/44FF44:Contains {0}/{1} Armor Sets]
 			[c/44FF44:Right Click to Open]
 			[c/44FF44:Duplicates work too]
 			'''
@@ -24,5 +24,24 @@ Buffs: {
 	ArmorSetsBuff: {
 		DisplayName: "[c/CCFFCC:Armor Box - Set Bonuses]:"
 		Description: Mods.MakeMeAccessory.Buffs.ArmorSetsBuff.Description
+	}
+}
+
+ButtonEffects: Effects
+ButtonProtection: Protection
+
+Configs: {
+	MMAConfig: {
+		DisplayName: M M A Config
+
+		MaxAccessories: {
+			Label: Max Accessories
+			Tooltip: ""
+		}
+
+		MaxArmorSets: {
+			Label: Max Armor Sets
+			Tooltip: ""
+		}
 	}
 }

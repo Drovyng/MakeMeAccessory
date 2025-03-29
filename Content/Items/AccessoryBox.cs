@@ -15,6 +15,8 @@ namespace MakeMeAccessory.Content.Items
     {
         public List<Item> items = new();
         public virtual bool isArmor => false;
+        public bool AllowEffects;
+        public bool AllowProtection;
         public override void SetDefaults()
         {
             Item.accessory = true;
@@ -23,10 +25,14 @@ namespace MakeMeAccessory.Content.Items
         {
             return items.Count;
         }
+        public virtual int GetMaxCount()
+        {
+            return ModContent.GetInstance<MMAConfig>().MaxAccessories;
+        }
         public override LocalizedText Tooltip => LocalizedText.Empty;
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Insert(tooltips.FindIndex((l) => l.Name == "Tooltip0"), new TooltipLine(Mod, "TooltipR", this.GetLocalization("Tooltip").Format(GetCount())));
+            tooltips.Insert(tooltips.FindIndex((l) => l.Name == "Tooltip0"), new TooltipLine(Mod, "TooltipR", this.GetLocalization("Tooltip").Format(GetCount(), GetMaxCount())));
         }
         public override ModItem Clone(Item newEntity)
         {
@@ -37,12 +43,16 @@ namespace MakeMeAccessory.Content.Items
                 insert.Add(item.Clone());
             }
             ((AccessoryBox)clone).items = insert;
+            ((AccessoryBox)clone).AllowEffects = AllowEffects;
+            ((AccessoryBox)clone).AllowProtection = AllowProtection;
 
             return clone;
         }
         public override void NetSend(BinaryWriter writer)
         {
             writer.Write(items.Count);
+            writer.Write(AllowEffects);
+            writer.Write(AllowProtection);
             foreach (var item in items)
             {
                 writer.Write(item.type);
@@ -59,6 +69,8 @@ namespace MakeMeAccessory.Content.Items
         {
             items = new List<Item>();
             var count = reader.ReadInt32();
+            AllowEffects = reader.ReadBoolean();
+            AllowProtection = reader.ReadBoolean();
             for (int i = 0; i < count; i++)
             {
                 var item = new Item(reader.ReadInt32(), 1, reader.ReadInt32());
@@ -94,16 +106,26 @@ namespace MakeMeAccessory.Content.Items
             if (Main.LocalPlayer != player) return;
             foreach (var item in items)
             {
-                player.GetModPlayer<EffectPlayer>().EffectAccessories.Add((item, hideVisual));
+                player.GetModPlayer<EffectPlayer>().EffectAccessories.Add((item, hideVisual, AllowEffects, AllowProtection));
             }
         }
         public override void SaveData(TagCompound tag)
         {
             tag["items"] = items.ToArray();
+            tag["effects"] = AllowEffects;
+            tag["protection"] = AllowProtection;
         }
         public override void LoadData(TagCompound tag)
         {
             items = tag.Get<Item[]>("items").ToList();
+            if (tag.ContainsKey("effects"))
+            {
+                AllowEffects = tag.Get<bool>("effects");
+                AllowProtection = tag.Get<bool>("protection");
+                return;
+            }
+            AllowEffects = true;
+            AllowProtection = true;
         }
         public override void AddRecipes()
         {

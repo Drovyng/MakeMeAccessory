@@ -1,8 +1,5 @@
-﻿using Humanizer;
-using System.Collections.Generic;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace MakeMeAccessory.Content.Items
@@ -15,12 +12,16 @@ namespace MakeMeAccessory.Content.Items
         {
             return (items.Count - 1) / 3;
         }
+        public override int GetMaxCount()
+        {
+            return ModContent.GetInstance<MMAConfig>().MaxArmorSets;
+        }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             if (Main.LocalPlayer != player) return;
             foreach (var item in items)
             {
-                player.GetModPlayer<EffectPlayer>().EffectArmor.Add((item, hideVisual));
+                player.GetModPlayer<EffectPlayer>().EffectArmor.Add((item, hideVisual, AllowEffects, AllowProtection));
             }
         }
         public override void AddRecipes()

@@ -7,8 +7,8 @@ namespace MakeMeAccessory.Content
 {
     public class EffectPlayer : ModPlayer
     {
-        public List<(Item, bool)> EffectAccessories = new();
-        public List<(Item, bool)> EffectArmor = new();
+        public List<(Item, bool, bool, bool)> EffectAccessories = new();
+        public List<(Item, bool, bool, bool)> EffectArmor = new();
         public string SetBonuses = "";
 
         public override void PreUpdate()
@@ -21,14 +21,17 @@ namespace MakeMeAccessory.Content
             for (int i = 0; i < EffectAccessories.Count; i++)
             {
                 var item = EffectAccessories[i];
-                Player.GrantPrefixBenefits(item.Item1);
-                Player.GrantArmorBenefits(item.Item1);
-                Player.ApplyEquipFunctional(item.Item1, item.Item2);
+                if (item.Item3)
+                {
+                    Player.GrantPrefixBenefits(item.Item1);
+                    Player.GrantArmorBenefits(item.Item1);
+                }
+                if (item.Item4) Player.ApplyEquipFunctional(item.Item1, item.Item2);
             }
             foreach (var item in EffectArmor)
             {
-                Player.GrantArmorBenefits(item.Item1);
-                Player.ApplyEquipFunctional(item.Item1, item.Item2);
+                if (item.Item3) Player.GrantArmorBenefits(item.Item1);
+                if (item.Item4) Player.ApplyEquipFunctional(item.Item1, item.Item2);
             }
         }
         public override void PostUpdateEquips()
@@ -42,6 +45,7 @@ namespace MakeMeAccessory.Content
             bool flag = true;
             for (int i = 0; i < EffectArmor.Count; i += 3)  // FUCK IT! I forgot to remove "EffectArmor.Count / 3" and nothing works!
             {
+                if (!EffectArmor[i].Item3) continue;
                 Player.armor[0] = EffectArmor[i].Item1;
                 Player.armor[1] = EffectArmor[i + 1].Item1;
                 Player.armor[2] = EffectArmor[i + 2].Item1;
